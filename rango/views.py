@@ -17,7 +17,7 @@ def index(request):
 def about(request):
     context_name = {'name': "Alexei Rodriguez"}
 
-    return render(request, 'rango/about.html', context=context_name)
+    return render(request, 'rango/about.html', context_name)
 
 
 def show_category(request, category_name_slug):
@@ -82,5 +82,3 @@ def add_page(request, category_name_slug):
     context_dict = {'form': form, 'category': category}
 
     return render(request, 'rango/add_page.html', context_dict)
-
-    return render(request, 'rango/add_page.html', {'form': form})
