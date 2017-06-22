@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
-def get_server_side_cookie(request, response, default_val = None):
+def get_server_side_cookie(request, cookie, default_val = None):
     val = request.session.get(cookie)
     if not val:
         val = default_val
@@ -44,12 +44,15 @@ def index(request):
 
 
 def about(request):
-    if request.session.test_cookie_worked():
-        print("TEST COOKIE WORKED!")
-        request.session.delete_test_cookie()
-    context_name = {'name': "Alexei Rodriguez"}
 
-    return render(request, 'rango/about.html', context_name)
+    visitor_cookie_handler(request)
+
+
+
+    context_dict = {'name': "Alexei Rodriguez"}
+    context_dict['visits'] = request.session['visits']
+
+    return render(request, 'rango/about.html', context=context_dict)
 
 
 def show_category(request, category_name_slug):
